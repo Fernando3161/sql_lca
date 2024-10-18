@@ -1,8 +1,8 @@
 """
-Author: [Your Name]
-Institution: [Your Institution]
-Date: [Date]
-License: [License Type]
+Author: Dr.-Ing. Fernando Penaherrera V.
+Institution: OFFIS Institue for Computer Sciences
+Date: 18.10.2024
+License: GNU GENERAL PUBLIC LICENSE
 Version: 1.0
 
 This script retrieves and processes data from a database to calculate material contributions for various parts.
