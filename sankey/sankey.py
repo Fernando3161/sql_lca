@@ -180,10 +180,20 @@ target_indices = [
     shortened_labels.index(label_mapping[target]) for target in targets_cleaned
 ]
 
-# Calculate node sizes based on incoming flow values
+# Calculate node sizes based on outgoing flow values
 node_sizes = np.zeros(len(shortened_labels))
-for target in target_indices:
-    node_sizes[target] += values_cleaned[target_indices.index(target)]
+
+# Aggregate values based on source indices
+for source in source_indices:
+    node_sizes[source] += values_cleaned[source_indices.index(source)]
+
+# Ensure the last node size is 100
+last_node_index = len(shortened_labels) - 1
+last_node_size = node_sizes[last_node_index]
+
+if last_node_size > 0:  # To avoid division by zero
+    scaling_factor = 100 / last_node_size
+    node_sizes *= scaling_factor
 
 # Normalize the flow values for color mapping
 normalized_values = (values_cleaned - np.min(values_cleaned)) / (
@@ -245,5 +255,5 @@ fig.update_traces(
 
 # Save the figure as an HTML file
 fig.write_html(
-    os.path.join(os.getcwd(), "sankey", f"sankey_diagram_{impact_name}_2.html")
+    os.path.join(os.getcwd(), "sankey", f"sankey_diagram_{impact_name}.html")
 )
